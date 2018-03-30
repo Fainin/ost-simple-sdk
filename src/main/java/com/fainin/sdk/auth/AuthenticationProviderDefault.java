@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.time.Clock;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -37,7 +38,7 @@ public class AuthenticationProviderDefault implements AuthenticationProvider {
             throws AuthenticationProviderException {
 
         queryParameters.put(API_KEY, apiCredentials.getApiKey());
-        queryParameters.put(REQUEST_TIMESTAMP, Long.toString(Instant.now().getEpochSecond()));
+        queryParameters.put(REQUEST_TIMESTAMP, Long.toString(Instant.now(Clock.systemUTC()).getEpochSecond()));
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(endpoint);
@@ -76,7 +77,6 @@ public class AuthenticationProviderDefault implements AuthenticationProvider {
             SecretKeySpec secret_key = new SecretKeySpec(
                     apiCredentials.getApiSecretKey().getBytes("UTF-8"), "HmacSHA256");
             sha256_HMAC.init(secret_key);
-
             signature = new String(Hex.encodeHex(sha256_HMAC.doFinal(data.getBytes("UTF-8"))));
 
         } catch (NoSuchAlgorithmException e) {

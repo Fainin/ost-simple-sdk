@@ -28,7 +28,7 @@ public class OSTClient extends OSTClientBase implements OST {
 
         TreeMap<String, String> params = new TreeMap<>();
         params.put("name", name);
-        return signAndExecuteRequest(USERS_CREATE_ENDPOINT, params, UsersDataResponse.class);
+        return signAndExecutePostRequest(USERS_CREATE_ENDPOINT, params, UsersDataResponse.class);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class OSTClient extends OSTClientBase implements OST {
         TreeMap<String, String> params = new TreeMap<>();
         params.put("name", name);
         params.put("uuid", uuid);
-        return signAndExecuteRequest(USERS_EDIT_ENDPOINT, params, UsersDataResponse.class);
+        return signAndExecutePostRequest(USERS_EDIT_ENDPOINT, params, UsersDataResponse.class);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class OSTClient extends OSTClientBase implements OST {
 
         TreeMap<String, String> params = new TreeMap<>();
         params.put("page_no", Integer.toString(pageNo));
-        return signAndExecuteRequest(USERS_LIST_ENDPOINT, params, UsersDataResponse.class);
+        return signAndExecuteGetRequest(USERS_LIST_ENDPOINT, params, UsersDataResponse.class);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class OSTClient extends OSTClientBase implements OST {
         TreeMap<String, String> params = new TreeMap<>();
         params.put("amount", Double.toString(amount));
         params.put("list_type", airdropListType.value());
-        return signAndExecuteRequest(AIRDROP_ENDPOINT, params, AirdropDateResponse.class);
+        return signAndExecutePostRequest(AIRDROP_ENDPOINT, params, AirdropDateResponse.class);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class OSTClient extends OSTClientBase implements OST {
 
         TreeMap<String, String> params = new TreeMap<>();
         params.put("airdrop_uuid", airdropUuid);
-        return signAndExecuteRequest(AIRDROP_STATUS_ENDPOINT, params, AirdropDateResponse.class);
+        return signAndExecuteGetRequest(AIRDROP_STATUS_ENDPOINT, params, AirdropDateResponse.class);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class OSTClient extends OSTClientBase implements OST {
         params.put("currency_type", currencyType.value());
         params.put("currency_value", Long.toString(currencyValue));
         params.put("commission_percent", Float.toString(commissionPercent));
-        return signAndExecuteRequest(TRANSACTION_TYPE_CREATE_ENDPOINT, params, TransactionsTypeResponse.class);
+        return signAndExecutePostRequest(TRANSACTION_TYPE_CREATE_ENDPOINT, params, TransactionsTypeResponse.class);
     }
 
     @Override
@@ -91,13 +91,13 @@ public class OSTClient extends OSTClientBase implements OST {
         params.put("currency_type", currencyType.value());
         params.put("currency_value", Long.toString(currencyValue));
         params.put("commission_percent", Float.toString(commissionPercent));
-        return signAndExecuteRequest(TRANSACTION_TYPE_EDIT_ENDPOINT, params, TransactionsTypeResponse.class);
+        return signAndExecutePostRequest(TRANSACTION_TYPE_EDIT_ENDPOINT, params, TransactionsTypeResponse.class);
     }
 
     @Override
     public TransactionsTypeResponse listTransactionTypes() {
 
-        return signAndExecuteRequest(TRANSACTION_TYPE_LIST_ENDPOINT,
+        return signAndExecuteGetRequest(TRANSACTION_TYPE_LIST_ENDPOINT,
                 new TreeMap<>(), TransactionsTypeResponse.class);
     }
 
@@ -108,7 +108,7 @@ public class OSTClient extends OSTClientBase implements OST {
         params.put("from_uuid", fromUuid);
         params.put("to_uuid", toUuid);
         params.put("transaction_kind", transactionKindName);
-        return signAndExecuteRequest(TRANSACTION_TYPE_EXECUTE_ENDPOINT, params,
+        return signAndExecutePostRequest(TRANSACTION_TYPE_EXECUTE_ENDPOINT, params,
                 TransactionsTypeExecutionResponse.class);
     }
 

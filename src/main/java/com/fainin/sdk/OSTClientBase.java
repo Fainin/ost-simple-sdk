@@ -26,11 +26,18 @@ abstract public class OSTClientBase {
         this.authenticationProvider = authenticationProvider;
     }
 
-    protected <T extends OSTApiResponse> T signAndExecuteRequest(
+    protected <T extends OSTApiResponse> T signAndExecutePostRequest(
             final String endpoint, final TreeMap<String, String> queryParameters, final Class<T> tClass) {
 
         authenticationProvider.signRequest(endpoint, queryParameters);
         return ostHttpClient.doPost(endpoint, queryParameters, tClass);
+    }
+
+    protected <T extends OSTApiResponse> T signAndExecuteGetRequest(
+            final String endpoint, final TreeMap<String, String> queryParameters, final Class<T> tClass) {
+
+        authenticationProvider.signRequest(endpoint, queryParameters);
+        return ostHttpClient.doGet(endpoint, queryParameters, tClass);
     }
 
     public OSTHttpClient getOstHttpClient() {

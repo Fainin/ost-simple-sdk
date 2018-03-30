@@ -2,14 +2,16 @@ package com.fainin.sdk.client;
 
 import com.fainin.sdk.response.OSTApiResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -35,6 +37,7 @@ public class OSTHttpClientDefault implements OSTHttpClient {
         PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
         httpClient = HttpClients.custom().setConnectionManager(cm).build();
         objectMapper = new ObjectMapper();
+        objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         this.host = host;
     }
 
@@ -47,7 +50,7 @@ public class OSTHttpClientDefault implements OSTHttpClient {
             httpGet.setURI(buildURI(endpoint, queryParameters));
         } catch (URISyntaxException e) {
             log.error(e.getMessage(), e);
-            throw new OSTClientException("Error while generating the uri");
+            throw new OSTClientException("Error while generating GET uri");
         }
         return executeRequest(httpGet, tClass);
 
@@ -60,9 +63,11 @@ public class OSTHttpClientDefault implements OSTHttpClient {
         HttpPost httpPost = new HttpPost();
         try {
             httpPost.setURI(buildURI(endpoint, queryParameters));
-        } catch (URISyntaxException e) {
+            httpPost.setEntity(new StringEntity(objectMapper.writeValueAsString(queryParameters),
+                    ContentType.APPLICATION_JSON));
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
-            throw new OSTClientException("Error while generating the uri");
+            throw new OSTClientException("Error while generating POST body and uri");
         }
         return executeRequest(httpPost, tClass);
 
@@ -78,9 +83,6 @@ public class OSTHttpClientDefault implements OSTHttpClient {
             } finally {
                 response.close();
             }
-        } catch (ClientProtocolException e) {
-            log.error(e.getMessage(), e);
-            throw new OSTClientException("Could not execute the request");
         } catch (IOException e) {
             log.error(e.getMessage(), e);
             throw new OSTClientException("Could not execute the request");

@@ -10,8 +10,8 @@ public class EconomyUser {
 
     private String uuid;
     private String name;
-    private Long totalAirdroppedTokens;
-    private Long tokenBalance;
+    private String totalAirdroppedTokens;
+    private String tokenBalance;
 
     public String getUuid() {
         return uuid;
@@ -29,19 +29,19 @@ public class EconomyUser {
         this.name = name;
     }
 
-    public Long getTotalAirdroppedTokens() {
+    public String getTotalAirdroppedTokens() {
         return totalAirdroppedTokens;
     }
 
-    public void setTotalAirdroppedTokens(Long totalAirdroppedTokens) {
+    public void setTotalAirdroppedTokens(String totalAirdroppedTokens) {
         this.totalAirdroppedTokens = totalAirdroppedTokens;
     }
 
-    public Long getTokenBalance() {
+    public String getTokenBalance() {
         return tokenBalance;
     }
 
-    public void setTokenBalance(Long tokenBalance) {
+    public void setTokenBalance(String tokenBalance) {
         this.tokenBalance = tokenBalance;
     }
 
