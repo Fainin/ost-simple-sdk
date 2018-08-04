@@ -19,6 +19,13 @@ public class OSTClient extends OSTClientBase implements OST {
         super(ostHttpClient, authenticationProvider, ostConfiguration);
     }
 
+
+    @Override
+    public String companyId() {
+
+        return getOstConfiguration().getUuid();
+    }
+
     @Override
     public UsersDataResponse createUser(final String name) {
 
@@ -70,14 +77,14 @@ public class OSTClient extends OSTClientBase implements OST {
     public TransactionResponse executeTransactionCompanyToUser(
             String userUuid, final Long actionId) {
 
-        return executeTransaction(getOstConfiguration().getUuid(), userUuid, actionId);
+        return executeTransaction(companyId(), userUuid, actionId);
     }
 
     @Override
     public TransactionResponse executeTransactionUserToCompany(
             String userUuid, final Long actionId) {
 
-        return executeTransaction(userUuid, getOstConfiguration().getUuid(), actionId);
+        return executeTransaction(userUuid, companyId(), actionId);
     }
 
     @Override

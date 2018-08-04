@@ -40,15 +40,15 @@ abstract public class OSTClientBase {
         return ostHttpClient.doGet(endpoint, queryParameters, tClass);
     }
 
-    public OSTHttpClient getOstHttpClient() {
+    protected OSTHttpClient getOstHttpClient() {
         return ostHttpClient;
     }
 
-    public OSTConfiguration getOstConfiguration() {
+    protected OSTConfiguration getOstConfiguration() {
         return ostConfiguration;
     }
 
-    public AuthenticationProvider getAuthenticationProvider() {
+    protected AuthenticationProvider getAuthenticationProvider() {
         return authenticationProvider;
     }
 }

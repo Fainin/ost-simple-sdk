@@ -9,6 +9,8 @@ import com.fainin.sdk.response.UsersDataResponse;
  */
 public interface OST {
 
+    public String companyId();
+
     public UsersDataResponse createUser(final String name);
 
     public UsersDataResponse updateUser(final String id, final String name);
