@@ -12,7 +12,9 @@ import java.util.List;
 public class UsersData {
 
     private String resultType;
-    private List<EconomyUser> economyUsers;
+    private EconomyUser user;
+
+    private List<EconomyUser> users;
 
     public String getResultType() {
         return resultType;
@@ -22,19 +24,28 @@ public class UsersData {
         this.resultType = resultType;
     }
 
-    public List<EconomyUser> getEconomyUsers() {
-        return economyUsers;
+    public EconomyUser getUser() {
+        return user;
     }
 
-    public void setEconomyUsers(List<EconomyUser> economyUsers) {
-        this.economyUsers = economyUsers;
+    public void setUser(EconomyUser user) {
+        this.user = user;
+    }
+
+    public List<EconomyUser> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<EconomyUser> users) {
+        this.users = users;
     }
 
     @Override
     public String toString() {
         return "UsersData{" +
                 "resultType='" + resultType + '\'' +
-                ", economyUsers=" + economyUsers +
+                ", user=" + user +
+                ", users=" + users +
                 '}';
     }
 }

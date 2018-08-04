@@ -1,7 +1,7 @@
 package com.fainin.sdk;
 
-import com.fainin.sdk.response.TransactionsTypeExecutionResponse;
-import com.fainin.sdk.response.TransactionsTypeResponse;
+import com.fainin.sdk.response.BalanceResponse;
+import com.fainin.sdk.response.TransactionResponse;
 import com.fainin.sdk.response.UsersDataResponse;
 
 public class TestUsage {
@@ -10,22 +10,33 @@ public class TestUsage {
 
         OST ost = OSTClientBuilder.defaultClient();
 
-        //TransactionsTypeExecutionResponse transactionsTypeExecutionResponse =
-                //ost.executeTransactionTypeCompanyToUser("", "");
+        /*UsersDataResponse usersDataResponse1 = ost.createUser("Hisham xxx");
+        UsersDataResponse usersDataResponse2 =
+                ost.updateUser(usersDataResponse1.getData().getUser().getId(), "Hisham testx");
+        UsersDataResponse usersDataResponse3 = ost.retrieveUser(usersDataResponse2.getData().getUser().getId());
+        UsersDataResponse usersDataResponse4 = ost.listUsers(1);
 
-        //UsersDataResponse usersDataResponse = ost.listUsers(1);
+        BalanceResponse balanceResponse = ost.retrieveUserBalance(
+                usersDataResponse4.getData().getUsers().get(4).getId());
 
-        //UsersDataResponse usersDataResponse = ost.createUser("Hisham test");
+        TransactionResponse ledgerResponse = ost.retrieveUserLedger(
+                usersDataResponse4.getData().getUsers().get(4).getId(), 1);*/
 
-        //TransactionsTypeExecutionResponse transactionsTypeExecutionResponse =
-                //ost.executeTransactionTypeCompanyToUser(
-                        //"360d1736-faa3-4d4e-8841-67f31da96075", "Reward");
+        /*TransactionResponse transactionsExecutionResponse = ost.executeTransaction(
+                usersDataResponse4.getData().getUsers().get(3).getId(),
+                usersDataResponse4.getData().getUsers().get(4).getId(), 39728l
+        );*/
 
-        //TransactionsTypeResponse transactionsTypeResponse = ost.listTransactionTypes();
+        /*TransactionResponse transactionResponse = ost.retrieveTransaction(
+                transactionsExecutionResponse.getData().getTransaction().getId());*/
 
-        //System.out.println(transactionsTypeExecutionResponse);
-        //System.out.println(transactionsTypeResponse);
-        //System.out.println(usersDataResponse);
-        //System.out.println(transactionsTypeExecutionResponse);
+        /*System.out.println(usersDataResponse1);
+        System.out.println(usersDataResponse2);
+        System.out.println(usersDataResponse3);
+        System.out.println(usersDataResponse4);
+        System.out.println(balanceResponse);
+        System.out.println(ledgerResponse);*/
+        //System.out.println(transactionsExecutionResponse);
+        //System.out.println(transactionResponse);
     }
 }

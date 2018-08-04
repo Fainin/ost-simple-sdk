@@ -3,13 +3,9 @@ package com.fainin.sdk;
 import com.fainin.sdk.auth.AuthenticationProvider;
 import com.fainin.sdk.client.OSTHttpClient;
 import com.fainin.sdk.config.OSTConfiguration;
-import com.fainin.sdk.constant.CurrencyType;
-import com.fainin.sdk.constant.TransactionTypeKind;
-import com.fainin.sdk.constant.AirdropListType;
-import com.fainin.sdk.response.AirdropDateResponse;
-import com.fainin.sdk.response.TransactionsTypeExecutionResponse;
+import com.fainin.sdk.response.BalanceResponse;
+import com.fainin.sdk.response.TransactionResponse;
 import com.fainin.sdk.response.UsersDataResponse;
-import com.fainin.sdk.response.TransactionsTypeResponse;
 
 import java.util.TreeMap;
 
@@ -32,12 +28,22 @@ public class OSTClient extends OSTClientBase implements OST {
     }
 
     @Override
-    public UsersDataResponse editUser(final String uuid, final String name) {
+    public UsersDataResponse updateUser(final String id, final String name) {
 
         TreeMap<String, String> params = new TreeMap<>();
         params.put("name", name);
-        params.put("uuid", uuid);
-        return signAndExecutePostRequest(USERS_EDIT_ENDPOINT, params, UsersDataResponse.class);
+        params.put("id", id);
+        return signAndExecutePostRequest(
+                USERS_EDIT_ENDPOINT.replace("{id}", id), params, UsersDataResponse.class);
+    }
+
+    @Override
+    public UsersDataResponse retrieveUser(String id) {
+
+        TreeMap<String, String> params = new TreeMap<>();
+        params.put("id", id);
+        return signAndExecuteGetRequest(
+                USERS_RETRIEVE_ENDPOINT.replace("{id}", id), params, UsersDataResponse.class);
     }
 
     @Override
@@ -49,81 +55,58 @@ public class OSTClient extends OSTClientBase implements OST {
     }
 
     @Override
-    public AirdropDateResponse airdrop(final double amount, final AirdropListType airdropListType) {
+    public TransactionResponse executeTransaction(
+            final String fromId, final String toId, final Long actionId) {
 
         TreeMap<String, String> params = new TreeMap<>();
-        params.put("amount", Double.toString(amount));
-        params.put("list_type", airdropListType.value());
-        return signAndExecutePostRequest(AIRDROP_ENDPOINT, params, AirdropDateResponse.class);
+        params.put("from_user_id", fromId);
+        params.put("to_user_id", toId);
+        params.put("action_id", actionId.toString());
+        return signAndExecutePostRequest(TRANSACTION_EXECUTE_ENDPOINT, params,
+                TransactionResponse.class);
     }
 
     @Override
-    public AirdropDateResponse airdropStatus(final String airdropUuid) {
+    public TransactionResponse executeTransactionCompanyToUser(
+            String userUuid, final Long actionId) {
+
+        return executeTransaction(getOstConfiguration().getUuid(), userUuid, actionId);
+    }
+
+    @Override
+    public TransactionResponse executeTransactionUserToCompany(
+            String userUuid, final Long actionId) {
+
+        return executeTransaction(userUuid, getOstConfiguration().getUuid(), actionId);
+    }
+
+    @Override
+    public TransactionResponse retrieveTransaction(String id) {
 
         TreeMap<String, String> params = new TreeMap<>();
-        params.put("airdrop_uuid", airdropUuid);
-        return signAndExecuteGetRequest(AIRDROP_STATUS_ENDPOINT, params, AirdropDateResponse.class);
+        params.put("id", id);
+        return signAndExecuteGetRequest(
+                TRANSACTION_RETRIEVE_ENDPOINT.replace("{id}", id), params, TransactionResponse.class);
     }
 
     @Override
-    public TransactionsTypeResponse createTransactionType(
-            final String name, final TransactionTypeKind transactionTypeKind,
-            final CurrencyType currencyType, final long currencyValue, final float commissionPercent) {
+    public BalanceResponse retrieveUserBalance(String userId) {
 
         TreeMap<String, String> params = new TreeMap<>();
-        params.put("name", name);
-        params.put("kind", transactionTypeKind.value());
-        params.put("currency_type", currencyType.value());
-        params.put("currency_value", Long.toString(currencyValue));
-        params.put("commission_percent", Float.toString(commissionPercent));
-        return signAndExecutePostRequest(TRANSACTION_TYPE_CREATE_ENDPOINT, params, TransactionsTypeResponse.class);
+        params.put("user_id", userId);
+        return signAndExecuteGetRequest(
+                BALANCE_RETRIEVE_ENDPOINT.replace("{user_id}", userId), params, BalanceResponse.class);
     }
 
     @Override
-    public TransactionsTypeResponse editTransactionType(
-            final long clientTransactionId, final String name, final TransactionTypeKind transactionTypeKind,
-            final CurrencyType currencyType, final long currencyValue, final float commissionPercent) {
+    public TransactionResponse retrieveUserLedger(String userId, int pageNo) {
 
         TreeMap<String, String> params = new TreeMap<>();
-        params.put("client_transaction_id", Long.toString(clientTransactionId));
-        params.put("name", name);
-        params.put("kind", transactionTypeKind.value());
-        params.put("currency_type", currencyType.value());
-        params.put("currency_value", Long.toString(currencyValue));
-        params.put("commission_percent", Float.toString(commissionPercent));
-        return signAndExecutePostRequest(TRANSACTION_TYPE_EDIT_ENDPOINT, params, TransactionsTypeResponse.class);
+        params.put("user_id", userId);
+        params.put("page_no", Integer.toString(pageNo));
+        return signAndExecuteGetRequest(
+                LEDGER_RETRIEVE_ENDPOINT.replace("{user_id}", userId), params, TransactionResponse.class);
     }
 
-    @Override
-    public TransactionsTypeResponse listTransactionTypes() {
-
-        return signAndExecuteGetRequest(TRANSACTION_TYPE_LIST_ENDPOINT,
-                new TreeMap<>(), TransactionsTypeResponse.class);
-    }
-
-    public TransactionsTypeExecutionResponse executeTransactionType(
-            final String fromUuid, final String toUuid, final String transactionKindName) {
-
-        TreeMap<String, String> params = new TreeMap<>();
-        params.put("from_uuid", fromUuid);
-        params.put("to_uuid", toUuid);
-        params.put("transaction_kind", transactionKindName);
-        return signAndExecutePostRequest(TRANSACTION_TYPE_EXECUTE_ENDPOINT, params,
-                TransactionsTypeExecutionResponse.class);
-    }
-
-    @Override
-    public TransactionsTypeExecutionResponse executeTransactionTypeCompanyToUser(
-            String userUuid, String transactionKindName) {
-
-        return executeTransactionType(getOstConfiguration().getUuid(), userUuid, transactionKindName);
-    }
-
-    @Override
-    public TransactionsTypeExecutionResponse executeTransactionTypeUserToCompany(
-            String userUuid, String transactionKindName) {
-
-        return executeTransactionType(userUuid, getOstConfiguration().getUuid(), transactionKindName);
-    }
 
 }

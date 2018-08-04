@@ -76,16 +76,21 @@ public class OSTHttpClientDefault implements OSTHttpClient {
     private <T extends OSTApiResponse> T executeRequest(
             final HttpUriRequest httpUriRequest, final Class<T> tClass) throws OSTClientException {
 
+        CloseableHttpResponse response = null;
         try {
-            CloseableHttpResponse response = httpClient.execute(httpUriRequest);
-            try {
-                return objectMapper.readValue(response.getEntity().getContent(), tClass);
-            } finally {
-                response.close();
-            }
+            response = httpClient.execute(httpUriRequest);
+            return objectMapper.readValue(response.getEntity().getContent(), tClass);
         } catch (IOException e) {
             log.error(e.getMessage(), e);
             throw new OSTClientException("Could not execute the request");
+        } finally {
+            if (response != null) {
+                try {
+                    response.close();
+                } catch (IOException e) {
+                    log.debug(e);
+                }
+            }
         }
     }
 

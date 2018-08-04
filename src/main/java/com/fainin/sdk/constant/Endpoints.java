@@ -5,13 +5,12 @@ package com.fainin.sdk.constant;
  */
 public class Endpoints {
 
-    public static final String USERS_CREATE_ENDPOINT = "/users/create";
-    public static final String USERS_EDIT_ENDPOINT = "/users/edit";
-    public static final String USERS_LIST_ENDPOINT = "/users/list";
-    public static final String AIRDROP_ENDPOINT = "/users/airdrop/drop";
-    public static final String AIRDROP_STATUS_ENDPOINT = "/users/airdrop/status";
-    public static final String TRANSACTION_TYPE_CREATE_ENDPOINT = "/transaction-types/create";
-    public static final String TRANSACTION_TYPE_EDIT_ENDPOINT = "/transaction-types/edit";
-    public static final String TRANSACTION_TYPE_LIST_ENDPOINT = "/transaction-types/list";
-    public static final String TRANSACTION_TYPE_EXECUTE_ENDPOINT = "/transaction-types/execute";
+    public static final String USERS_CREATE_ENDPOINT = "/users/";
+    public static final String USERS_EDIT_ENDPOINT = "/users/{id}";
+    public static final String USERS_RETRIEVE_ENDPOINT = "/users/{id}";
+    public static final String USERS_LIST_ENDPOINT = "/users";
+    public static final String TRANSACTION_EXECUTE_ENDPOINT = "/transactions";
+    public static final String TRANSACTION_RETRIEVE_ENDPOINT = "/transactions/{id}";
+    public static final String BALANCE_RETRIEVE_ENDPOINT = "/balances/{user_id}";
+    public static final String LEDGER_RETRIEVE_ENDPOINT = "/ledger/{user_id}";
 }

@@ -1,12 +1,8 @@
 package com.fainin.sdk;
 
-import com.fainin.sdk.constant.CurrencyType;
-import com.fainin.sdk.constant.TransactionTypeKind;
-import com.fainin.sdk.response.AirdropDateResponse;
-import com.fainin.sdk.response.TransactionsTypeExecutionResponse;
+import com.fainin.sdk.response.BalanceResponse;
+import com.fainin.sdk.response.TransactionResponse;
 import com.fainin.sdk.response.UsersDataResponse;
-import com.fainin.sdk.constant.AirdropListType;
-import com.fainin.sdk.response.TransactionsTypeResponse;
 
 /**
  * Created by hishamaborob on 23-Mar-18.
@@ -15,30 +11,24 @@ public interface OST {
 
     public UsersDataResponse createUser(final String name);
 
-    public UsersDataResponse editUser(final String uuid, final String name);
+    public UsersDataResponse updateUser(final String id, final String name);
+
+    public UsersDataResponse retrieveUser(final String id);
 
     public UsersDataResponse listUsers(final int pageNo);
 
-    public AirdropDateResponse airdrop(final double amount, final AirdropListType airdropListType);
+    public TransactionResponse executeTransaction(
+            final String fromId, final String toId, final Long actionId);
 
-    public AirdropDateResponse airdropStatus(final String airdropUuid);
+    public TransactionResponse executeTransactionCompanyToUser(
+            final String userId, final Long actionId);
 
-    public TransactionsTypeResponse createTransactionType(
-            final String name, final TransactionTypeKind transactionTypeKind, final CurrencyType currencyType,
-            final long currencyValue, final float commissionPercent);
+    public TransactionResponse executeTransactionUserToCompany(
+            final String userId, final Long actionId);
 
-    public TransactionsTypeResponse editTransactionType(
-            final long clientTransactionId, final String name, final TransactionTypeKind transactionTypeKind,
-            final CurrencyType currencyType, final long currencyValue, final float commissionPercent);
+    public TransactionResponse retrieveTransaction(final String id);
 
-    public TransactionsTypeResponse listTransactionTypes();
+    public BalanceResponse retrieveUserBalance(final String userId);
 
-    public TransactionsTypeExecutionResponse executeTransactionType(
-            final String fromUuid, final String toUuid, final String transactionKindName);
-
-    public TransactionsTypeExecutionResponse executeTransactionTypeCompanyToUser(
-            final String userUuid, final String transactionKindName);
-
-    public TransactionsTypeExecutionResponse executeTransactionTypeUserToCompany(
-            final String userUuid, final String transactionKindName);
+    public TransactionResponse retrieveUserLedger(final String userId, final int pageNo);
 }

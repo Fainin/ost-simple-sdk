@@ -8,17 +8,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EconomyUser {
 
-    private String uuid;
+    private String id;
     private String name;
-    private String totalAirdroppedTokens;
-    private String tokenBalance;
 
-    public String getUuid() {
-        return uuid;
+    public String getId() {
+        return id;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -29,29 +27,11 @@ public class EconomyUser {
         this.name = name;
     }
 
-    public String getTotalAirdroppedTokens() {
-        return totalAirdroppedTokens;
-    }
-
-    public void setTotalAirdroppedTokens(String totalAirdroppedTokens) {
-        this.totalAirdroppedTokens = totalAirdroppedTokens;
-    }
-
-    public String getTokenBalance() {
-        return tokenBalance;
-    }
-
-    public void setTokenBalance(String tokenBalance) {
-        this.tokenBalance = tokenBalance;
-    }
-
     @Override
     public String toString() {
         return "EconomyUser{" +
-                "uuid='" + uuid + '\'' +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", totalAirdroppedTokens=" + totalAirdroppedTokens +
-                ", tokenBalance=" + tokenBalance +
                 '}';
     }
 }
