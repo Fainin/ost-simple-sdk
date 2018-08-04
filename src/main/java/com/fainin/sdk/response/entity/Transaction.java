@@ -12,10 +12,11 @@ public class Transaction {
     private String transactionHash;
     private String fromUserId;
     private String toUserId;
-    private String transactionKind;
     private Long actionId;
     private Long timestamp;
     private String status;
+    private String amount;
+    private String commissionAmount;
 
     public String getId() {
         return id;
@@ -49,14 +50,6 @@ public class Transaction {
         this.toUserId = toUserId;
     }
 
-    public String getTransactionKind() {
-        return transactionKind;
-    }
-
-    public void setTransactionKind(String transactionKind) {
-        this.transactionKind = transactionKind;
-    }
-
     public Long getActionId() {
         return actionId;
     }
@@ -81,17 +74,34 @@ public class Transaction {
         this.status = status;
     }
 
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String getCommissionAmount() {
+        return commissionAmount;
+    }
+
+    public void setCommissionAmount(String commissionAmount) {
+        this.commissionAmount = commissionAmount;
+    }
+
     @Override
     public String toString() {
-        return "TransactionData{" +
+        return "Transaction{" +
                 "id='" + id + '\'' +
                 ", transactionHash='" + transactionHash + '\'' +
                 ", fromUserId='" + fromUserId + '\'' +
                 ", toUserId='" + toUserId + '\'' +
-                ", transactionKind='" + transactionKind + '\'' +
                 ", actionId=" + actionId +
                 ", timestamp=" + timestamp +
                 ", status='" + status + '\'' +
+                ", amount='" + amount + '\'' +
+                ", commissionAmount='" + commissionAmount + '\'' +
                 '}';
     }
 }
