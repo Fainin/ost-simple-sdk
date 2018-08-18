@@ -1,4 +1,4 @@
-package com.fainin.sdk.response;
+package com.fainin.sdk.client.v1_1.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

@@ -1,4 +1,4 @@
-package com.fainin.sdk.response;
+package com.fainin.sdk.client;
 
 /**
  * Created by hishamaborob on 23-Mar-18.

@@ -7,6 +7,13 @@ import java.util.TreeMap;
  */
 public interface AuthenticationProvider {
 
+    /**
+     *
+     * @param endpoint
+     * @param queryParameters
+     * @return
+     * @throws AuthenticationProviderException
+     */
     public TreeMap<String, String> signRequest(final String endpoint, final TreeMap<String, String> queryParameters)
             throws AuthenticationProviderException;
 }

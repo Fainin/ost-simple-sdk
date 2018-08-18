@@ -1,4 +1,4 @@
-package com.fainin.sdk.constant;
+package com.fainin.sdk.client.v1_1.constant;
 
 /**
  * Created by hishamaborob on 23-Mar-18.

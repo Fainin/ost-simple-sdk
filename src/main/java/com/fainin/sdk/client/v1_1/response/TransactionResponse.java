@@ -1,6 +1,7 @@
-package com.fainin.sdk.response;
+package com.fainin.sdk.client.v1_1.response;
 
-import com.fainin.sdk.response.data.TransactionData;
+import com.fainin.sdk.client.OSTApiResponse;
+import com.fainin.sdk.client.v1_1.response.data.TransactionData;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**

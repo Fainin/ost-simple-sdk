@@ -9,11 +9,20 @@ public class AuthenticationProviderException extends RuntimeException {
         super();
     }
 
-    public AuthenticationProviderException(String s) {
-        super(s);
+    /**
+     *
+     * @param message
+     */
+    public AuthenticationProviderException(String message) {
+        super(message);
     }
 
-    public AuthenticationProviderException(String s, Throwable throwable) {
-        super(s, throwable);
+    /**
+     *
+     * @param message
+     * @param throwable
+     */
+    public AuthenticationProviderException(String message, Throwable throwable) {
+        super(message, throwable);
     }
 }

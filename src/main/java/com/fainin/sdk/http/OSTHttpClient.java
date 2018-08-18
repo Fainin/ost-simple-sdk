@@ -1,6 +1,6 @@
-package com.fainin.sdk.client;
+package com.fainin.sdk.http;
 
-import com.fainin.sdk.response.OSTApiResponse;
+import com.fainin.sdk.client.OSTApiResponse;
 
 import java.util.TreeMap;
 
@@ -9,9 +9,25 @@ import java.util.TreeMap;
  */
 public interface OSTHttpClient {
 
+    /**
+     *
+     * @param endpoint
+     * @param queryParameters
+     * @param tClass
+     * @param <T>
+     * @return
+     */
     public <T extends OSTApiResponse> T doGet(
             final String endpoint, final TreeMap<String, String> queryParameters, final Class<T> tClass);
 
+    /**
+     *
+     * @param endpoint
+     * @param queryParameters
+     * @param tClass
+     * @param <T>
+     * @return
+     */
     public <T extends OSTApiResponse> T doPost(
             final String endpoint, final TreeMap<String, String> queryParameters, final Class<T> tClass);
 }

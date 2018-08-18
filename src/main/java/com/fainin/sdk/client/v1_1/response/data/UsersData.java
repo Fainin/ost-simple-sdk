@@ -1,6 +1,6 @@
-package com.fainin.sdk.response.data;
+package com.fainin.sdk.client.v1_1.response.data;
 
-import com.fainin.sdk.response.entity.EconomyUser;
+import com.fainin.sdk.client.v1_1.response.entity.EconomyUser;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.fainin.sdk.client;
+package com.fainin.sdk.http;
 
-import com.fainin.sdk.response.OSTApiResponse;
+import com.fainin.sdk.client.OSTApiResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import org.apache.commons.logging.Log;
@@ -32,15 +32,37 @@ public class OSTHttpClientDefault implements OSTHttpClient {
     private ObjectMapper objectMapper;
     private String host;
 
+    /**
+     * @param host
+     */
     public OSTHttpClientDefault(final String host) {
 
+        this(host, null);
         PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
         httpClient = HttpClients.custom().setConnectionManager(cm).build();
+    }
+
+    /**
+     *
+     * @param host
+     * @param httpClient
+     */
+    public OSTHttpClientDefault(final String host, CloseableHttpClient httpClient) {
+
+        this.httpClient = httpClient;
         objectMapper = new ObjectMapper();
         objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         this.host = host;
     }
 
+    /**
+     * @param endpoint
+     * @param queryParameters
+     * @param tClass
+     * @param <T>
+     * @return
+     * @throws OSTClientException
+     */
     public <T extends OSTApiResponse> T doGet(
             final String endpoint, final TreeMap<String, String> queryParameters, final Class<T> tClass)
             throws OSTClientException {
@@ -56,6 +78,14 @@ public class OSTHttpClientDefault implements OSTHttpClient {
 
     }
 
+    /**
+     * @param endpoint
+     * @param queryParameters
+     * @param tClass
+     * @param <T>
+     * @return
+     * @throws OSTClientException
+     */
     public <T extends OSTApiResponse> T doPost(
             final String endpoint, final TreeMap<String, String> queryParameters, final Class<T> tClass)
             throws OSTClientException {

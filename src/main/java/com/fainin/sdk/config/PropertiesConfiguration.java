@@ -24,6 +24,13 @@ public class PropertiesConfiguration implements OSTConfiguration {
 
     private final ApiCredentials apiCredentials;
 
+    /**
+     *
+     * @param file
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws IllegalArgumentException
+     */
     public PropertiesConfiguration(File file) throws FileNotFoundException, IOException, IllegalArgumentException {
 
         if (!file.exists()) {
@@ -61,6 +68,11 @@ public class PropertiesConfiguration implements OSTConfiguration {
         }
     }
 
+    /**
+     *
+     * @param inputStream
+     * @throws IOException
+     */
     public PropertiesConfiguration(InputStream inputStream) throws IOException {
         Properties accountProperties = new Properties();
         try {

@@ -1,6 +1,5 @@
 package com.fainin.sdk.config;
 
-import com.fainin.sdk.SdkClientException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -23,6 +22,10 @@ public class ClasspathPropertiesFileConfigurationProvider implements OSTConfigur
         this(DEFAULT_PROPERTIES_FILE);
     }
 
+    /**
+     *
+     * @param configurationFilePath
+     */
     public ClasspathPropertiesFileConfigurationProvider(String configurationFilePath) {
 
         if (configurationFilePath == null) {
@@ -35,6 +38,11 @@ public class ClasspathPropertiesFileConfigurationProvider implements OSTConfigur
         }
     }
 
+    /**
+     *
+     * @return
+     * @throws SdkClientException
+     */
     public OSTConfiguration getConfiguration() throws SdkClientException {
 
         InputStream inputStream = getClass().getResourceAsStream(configurationFilePath);

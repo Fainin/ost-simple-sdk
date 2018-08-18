@@ -28,11 +28,22 @@ public class AuthenticationProviderDefault implements AuthenticationProvider {
 
     private ApiCredentials apiCredentials;
 
+    /**
+     *
+     * @param apiCredentials
+     */
     public AuthenticationProviderDefault(ApiCredentials apiCredentials) {
 
         this.apiCredentials = apiCredentials;
     }
 
+    /**
+     *
+     * @param endpoint
+     * @param queryParameters
+     * @return
+     * @throws AuthenticationProviderException
+     */
     @Override
     public TreeMap<String, String> signRequest(final String endpoint, final TreeMap<String, String> queryParameters)
             throws AuthenticationProviderException {
